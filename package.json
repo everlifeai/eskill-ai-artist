@@ -1,0 +1,13 @@
+{
+  "name": "eskill-ai-artist",
+  "version": "0.1.0",
+  "description": "Restyle your images in a variety of cool artistic styles",
+  "main": "index.js",
+  "author": "charles.lobo@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "cote": "^0.18.0",
+    "elife-utils": "everlifeai/elife-utils",
+    "request": "^2.88.0"
+  }
+}
