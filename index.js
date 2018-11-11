@@ -30,9 +30,10 @@ const commMgrClient = new cote.Requester({
     key: 'everlife-communication-svc',
 })
 
-function sendReply(msg, req) {
+function sendReply(msg, addl, req) {
     req.type = 'reply'
     req.msg = msg
+    req.addl = addl
     commMgrClient.send(req, (err) => {
         if(err) u.showErr(err)
     })
@@ -78,7 +79,7 @@ function startMicroservice() {
                     sendReply(err, req)
                     u.showErr(err)
                 } else {
-                    sendReply(outfile, req)
+                    sendReply(`Created here for you: ${outfile}`, { open: outfile }, req)
                 }
             })
         } else {
@@ -87,12 +88,12 @@ function startMicroservice() {
             if(msg.startsWith('/style_pic ')) {
                 if(!AIARTIST_URL) {
                     cb(null, true)
-                    sendReply("AIARTIST_HOST or AIARTIST_PORT has not been set. I cannot draw...", req)
+                    sendReply("AIARTIST_HOST or AIARTIST_PORT has not been set. I cannot draw...", null, req)
                 } else {
                     askedForService = true
                     style = msg.substring('/style_pic '.length)
                     cb(null, true)
-                    sendReply("What's the path to the picture?", req)
+                    sendReply("What's the path to the picture?", null, req)
                 }
             } else {
                 cb()
