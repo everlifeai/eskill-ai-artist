@@ -49,7 +49,7 @@ function registerWithCommMgr() {
         type: 'register-msg-handler',
         mskey: msKey,
         mstype: 'msg',
-        mshelp: [ { cmd: '/style_pic', txt: '(muse/rain/scream/udnie/wave/wreck) - Artistically redraw an image in the given style' } ],
+        mshelp: [ { cmd: '/style_pic', txt: '<<muse,rain,scream,udnie,wave,wreck>> - Artistically redraw an image in the given style' } ],
     }, (err) => {
         if(err) u.showErr(err)
     })
@@ -76,7 +76,8 @@ function startMicroservice() {
             cb(null, true)
             draw(style, req.msg, (err, outfile) => {
                 if(err) {
-                    sendReply(err, req)
+                    if(typeof err == 'string') sendReply(err, null, req)
+                    else sendReply('Could not request artist to convert the picture!', null, req)
                     u.showErr(err)
                 } else {
                     sendReply(`Created here for you: ${outfile}`, { open: outfile }, req)
@@ -123,7 +124,7 @@ function draw(style, imgpath, cb) {
             cb(null, body)
         }
     })
-    cb(null, "Let me check...")
+    cb(null, "Ok. Let me draw...")
 }
 
 main()
