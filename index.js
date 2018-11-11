@@ -83,6 +83,7 @@ function startMicroservice() {
                     sendReply(`Created here for you: ${outfile}`, { open: outfile }, req)
                 }
             })
+            sendReply("Ok. Let me draw...", null, req)
         } else {
             let msg = req.msg
             if(!msg) return cb()
@@ -124,7 +125,6 @@ function draw(style, imgpath, cb) {
             cb(null, body)
         }
     })
-    cb(null, "Ok. Let me draw...")
 }
 
 main()
